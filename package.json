@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/jindac/reactTasks#readme",
   "dependencies": {
+    "axios": "^0.17.0",
     "babel-loader": "^7.1.2",
     "bootstrap": "^3.3.7",
     "react": "^16.0.0",

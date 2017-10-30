@@ -8,13 +8,20 @@ class NewTask extends React.Component {
       task: ''
     };
   }
-  // close(e) {
-  //   e.preventDefault();
 
-  //   if (this.props.onClose) {
-  //     this.props.onClose();
-  //   }
-  // }
+  addNewTask() {
+    if (this.state.task !== '') {
+      this.props.onNewTask(this.state.task);
+      this.props.closeNewTask();
+    }
+  }
+
+  handleKeyDown(e) {
+    console.log('e.key = ', e.key);
+    if (e.key === 'Escape') {
+      this.props.closeNewTask();
+    }
+  }
 
   render() {
     if (this.props.isOpen === false) {
@@ -42,10 +49,12 @@ class NewTask extends React.Component {
 
     return (
       <div>
-        <div style={modalStyle}>
-          <input type='text' placeholder={'Type your task here.'} onChange={(e) => { this.setState({task: e.target.value}); }}></input>
-          <input type='button' value='Save' onClick={() => { this.props.onNewTask(this.state.task); this.props.closeNewTask(); }}></input>
-        </div>
+        <form style={modalStyle} onSubmit={this.addNewTask.bind(this)}>
+          <input autoFocus type='text' placeholder={'Type your task here.'} onChange={(e) => { this.setState({task: e.target.value}); }} onKeyDown={(e) => { this.handleKeyDown(e); }}></input>
+          <input type='button' value='Add' onClick={this.addNewTask.bind(this)}></input>
+          <input type='button' value='Cancel' onClick={() => { this.props.closeNewTask(); }}></input>
+        </form>
+        <div style={backdropStyle} onClick={() => { this.props.closeNewTask(); }}></div>
       </div>
     );
   }
