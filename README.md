@@ -1,7 +1,7 @@
-#reactTasks
+# reactTasks
 A task organizer made using React
 
-##Setup
+## Setup
 1.) From within the root directory:
 ```
 npm install
