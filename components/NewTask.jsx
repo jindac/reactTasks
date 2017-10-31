@@ -47,8 +47,17 @@ class NewTask extends React.Component {
       background: 'rgba(0, 0, 0, 0.3)'
     };
 
+    let container = {
+      flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      alignContent: 'center',
+      fontFamily: 'Lato',
+    };
+
     return (
-      <div>
+      <div style={container}>
         <form style={modalStyle} onSubmit={this.addNewTask.bind(this)}>
           <input autoFocus type='text' placeholder={'Type your task here.'} onChange={(e) => { this.setState({task: e.target.value}); }} onKeyDown={(e) => { this.handleKeyDown(e); }}></input>
           <input type='button' value='Add' onClick={this.addNewTask.bind(this)}></input>

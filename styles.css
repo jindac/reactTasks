@@ -1,0 +1,26 @@
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  zIndex: 9999;
+  background: #fff;
+}
+
+.backDrop {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  zIndex: 9998;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
