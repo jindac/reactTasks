@@ -115,7 +115,7 @@ class Tasklist extends React.Component {
       offset: 14,
       position: 'bottom right',
       theme: 'light',
-      time: 0,
+      time: 5000,
       transition: 'scale'
     };
 
