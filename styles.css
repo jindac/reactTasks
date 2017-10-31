@@ -17,10 +17,63 @@
   background: rgba(0, 0, 0, 0.3);
 }
 
-.container {
+.taskContainer {
+  padding-left: 6%;
+  padding-right: 5%;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
+  align-content: center;
+}
+
+.taskListContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  align-content: center;
+  font-family: 'Lato';
+  overflow: scroll;
+  padding-left: 16.5%;
+  padding-right: 16.5%;
+}
+
+div {
+  font-family: 'Lato';
+}
+
+h1 {
+  align-self: auto;
+  flex-grow: 5;
+}
+
+h3 {
+  align-self: auto;
+  flex-grow: 4;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+i {
+  align-self: flex-end;
+  flex-grow: 1;
+}
+
+.buttons {
+  flex-grow: 1;
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.panel {
+  padding-left: 16.5%;
+  padding-right: 16.5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
   align-content: center;
 }

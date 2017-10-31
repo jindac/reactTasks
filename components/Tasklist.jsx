@@ -1,10 +1,10 @@
 import React from 'react';
 import { createStore } from 'redux';
 import axios from 'axios';
-
+import AlertContainer from 'react-alert';
+import { Button, ButtonToolbar } from 'react-bootstrap';
 import Task from './Task.jsx';
 import NewTask from './NewTask.jsx';
-import AlertContainer from 'react-alert';
 
 // const reducer = () => {
 //   if (action.type === 'INC') {
@@ -17,15 +17,6 @@ import AlertContainer from 'react-alert';
 // store.subscribe(() => {
 //   console.log('store changed', store.getState());
 // });
-
-const style = {
-  flex: 1,
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  alignContent: 'center',
-  fontFamily: 'Lato',
-};
 
 class Tasklist extends React.Component {
 
@@ -129,16 +120,20 @@ class Tasklist extends React.Component {
     };
 
     return (
-      <div style={style}>
-        <h1>Tasks</h1>
-        <button onClick={this.openNewTask.bind(this)}>
-          Add Task
-        </button>
-        <button onClick={this.onSave.bind(this)} disabled={!this.state.canSave}>
-          Save
-        </button>
+      <div>
+        <div className='panel'>
+          <h1>Tasks</h1>
+          <ButtonToolbar className='buttons'>
+            <Button bsStyle='primary' onClick={this.openNewTask.bind(this)}>
+              Add Task
+            </Button>
+            <Button bsStyle='success' onClick={this.onSave.bind(this)} disabled={!this.state.canSave}>
+              Save
+            </Button>
+          </ButtonToolbar>
+        </div>
         <NewTask isOpen={this.state.openNewTask} onNewTask={this.onNewTask.bind(this)} closeNewTask={this.closeNewTask.bind(this)} />
-        <div style={style}>
+        <div className='taskListContainer'>
         {this.state.tasks.map((task, taskID, taskArray) => (
           <Task task={task} taskID={taskID} deleteTask={this.deleteTask.bind(this)} editTask={this.editTask.bind(this)} />
         ))}

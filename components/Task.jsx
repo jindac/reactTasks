@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button, ButtonToolbar } from 'react-bootstrap';
 
 const style = {
   flex: 1,
@@ -50,13 +51,36 @@ class Task extends React.Component {
   }
 
   render() {
-    return (
-      <div className='container'>
-        {this.state.editing ? <input autoFocus type='text' defaultValue={this.props.task} onChange={this.handleInputChange.bind(this)} onKeyDown={(e) => { this.handleKeyDown(e); }}></input> : <h2>{this.props.task}</h2>}
-        {this.state.editing ? <i className="fa fa-floppy-o fa-2x" aria-hidden="true" onClick={this.editTask.bind(this)}></i> : <i className="fa fa-pencil-square-o fa-2x" aria-hidden="true" onClick={this.toggleEdit.bind(this)}></i>}
-        <i className="fa fa-trash-o fa-2x" aria-hidden="true" onClick={this.deleteTask.bind(this)}></i>
-      </div>
-    );
+    const isEditing = this.state.editing;
+    if (isEditing) {
+      return (
+        <div className='taskContainer'>
+          <input autoFocus type='text' defaultValue={this.props.task} onChange={this.handleInputChange.bind(this)} onKeyDown={(e) => { this.handleKeyDown(e); }}></input>
+          <ButtonToolbar className='buttons'>
+            <Button onClick={this.editTask.bind(this)}>
+              <i className="fa fa-floppy-o fa-2x" aria-hidden="true"></i>
+            </Button>
+            <Button onClick={this.toggleEdit.bind(this)}>
+              <i className="fa fa-times fa-2x" aria-hidden="true"></i>
+            </Button>
+          </ButtonToolbar>
+        </div>
+      );
+    } else {
+      return (
+        <div className='taskContainer'>
+          <h3>{this.props.task}</h3>
+          <ButtonToolbar className='buttons'>
+            <Button onClick={this.toggleEdit.bind(this)}>
+              <i className="fa fa-pencil fa-2x" aria-hidden="true"></i>
+            </Button>
+            <Button onClick={this.deleteTask.bind(this)}>
+              <i className="fa fa-trash-o fa-2x" aria-hidden="true"></i>
+            </Button>
+          </ButtonToolbar>
+        </div>
+      );
+    }
   }
 }
 
