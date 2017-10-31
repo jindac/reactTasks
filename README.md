@@ -1,4 +1,5 @@
 # reactTasks
+### by Derrick Chan
 A task organizer made using React
 
 ## Setup
