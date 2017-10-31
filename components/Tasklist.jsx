@@ -4,7 +4,6 @@ import axios from 'axios';
 import AlertContainer from 'react-alert';
 import { Button, ButtonToolbar } from 'react-bootstrap';
 import Task from './Task.jsx';
-import NewTask from './NewTask.jsx';
 
 // const reducer = () => {
 //   if (action.type === 'INC') {
@@ -24,7 +23,8 @@ class Tasklist extends React.Component {
     super(props);
     this.state = {
       tasks: [],
-      openNewTask: false,
+      newTask: '',
+      addingNewTask: false,
       canSave: false
     };
   }
@@ -44,23 +44,29 @@ class Tasklist extends React.Component {
 
   openNewTask() {
     this.setState({
-      openNewTask: true
+      addingNewTask: true
     });
   }
 
   closeNewTask() {
     this.setState({
-      openNewTask: false
+      addingNewTask: false
     });
   }
 
   onNewTask(task) {
-    let newTasks = this.state.tasks;
-    newTasks.unshift(task);
-    this.setState({
-      tasks: newTasks,
-      canSave: true
-    });
+    if (this.state.newTask.length > 0) {
+      let newTasks = this.state.tasks;
+      newTasks.unshift(task);
+      this.setState({
+        task: '',
+        tasks: newTasks,
+        canSave: true,
+        addingNewTask: false,
+      });
+    } else {
+      this.closeNewTask();
+    }
   }
 
   editTask(taskID, edit) {
@@ -110,6 +116,21 @@ class Tasklist extends React.Component {
     this.showAlert();
   }
 
+  handleInputChange(e) {
+    this.setState({
+      newTask: e.target.value
+    });
+  }
+
+  handleKeyDown(e) {
+    console.log('e.key = ', e.key);
+    if (e.key === 'Escape') {
+      this.closeNewTask();
+    } else if (e.key === 'Enter') {
+      this.onNewTask(this.state.newTask);
+    }
+  }
+
   render() {
     const alertOptions = {
       offset: 14,
@@ -132,8 +153,19 @@ class Tasklist extends React.Component {
             </Button>
           </ButtonToolbar>
         </div>
-        <NewTask isOpen={this.state.openNewTask} onNewTask={this.onNewTask.bind(this)} closeNewTask={this.closeNewTask.bind(this)} />
         <div className='taskListContainer'>
+        {this.state.addingNewTask &&
+          <div className='taskContainer'>
+            <input autoFocus={this.state.addingNewTask} type='text' placeholder={'Describe your task here.'} onChange={this.handleInputChange.bind(this)} onKeyDown={this.handleKeyDown.bind(this)}></input>
+            <ButtonToolbar className='buttons'>
+              <Button onClick={(() => { this.onNewTask(this.state.newTask); } ).bind(this)}>
+                <i className="fa fa-floppy-o fa-2x" aria-hidden="true"></i>
+              </Button>
+              <Button onClick={this.closeNewTask.bind(this)}>
+                <i className="fa fa-times fa-2x" aria-hidden="true"></i>
+              </Button>
+            </ButtonToolbar>
+          </div>}
         {this.state.tasks.map((task, taskID, taskArray) => (
           <Task task={task} taskID={taskID} deleteTask={this.deleteTask.bind(this)} editTask={this.editTask.bind(this)} />
         ))}
@@ -145,3 +177,4 @@ class Tasklist extends React.Component {
 }
 
 export default Tasklist;
+        // <NewTask isOpen={this.state.openNewTask} onNewTask={this.onNewTask.bind(this)} closeNewTask={this.closeNewTask.bind(this)} />
