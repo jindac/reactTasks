@@ -1,6 +1,6 @@
 # reactTasks
-### by Derrick Chan
 A task organizer made using React
+### by Derrick Chan
 
 ## Setup
 1.) From within the root directory:
