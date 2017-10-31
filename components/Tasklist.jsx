@@ -138,7 +138,7 @@ class Tasklist extends React.Component {
             <input autoFocus={this.state.addingNewTask} type='text' placeholder={'Describe your task here.'} onChange={this.handleInputChange.bind(this)} onKeyDown={this.handleKeyDown.bind(this)}></input>
             <ButtonToolbar className='buttons'>
               <Button onClick={(() => { this.onNewTask(this.state.newTask); } ).bind(this)}>
-                <i className="fa fa-floppy-o fa-2x" aria-hidden="true"></i>
+                <i className="fa fa-plus fa-2x" aria-hidden="true"></i>
               </Button>
               <Button onClick={this.closeNewTask.bind(this)}>
                 <i className="fa fa-times fa-2x" aria-hidden="true"></i>
