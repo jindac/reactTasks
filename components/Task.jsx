@@ -1,15 +1,6 @@
 import React from 'react';
 import { Button, ButtonToolbar } from 'react-bootstrap';
 
-const style = {
-  flex: 1,
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  alignContent: 'center',
-  fontFamily: 'Lato',
-};
-
 class Task extends React.Component {
   constructor(props) {
     super(props);
