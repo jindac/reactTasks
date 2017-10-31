@@ -72,6 +72,15 @@ class Tasklist extends React.Component {
     });
   }
 
+  editTask(taskID, edit) {
+    let newTasks = this.state.tasks;
+    newTasks[taskID] = edit;
+    this.setState({
+      tasks: newTasks,
+      canSave: true
+    });
+  }
+
   deleteTask(taskID) {
     let newTasks = this.state.tasks.slice(0, taskID).concat(this.state.tasks.slice(taskID + 1));
     console.log(newTasks);
@@ -131,7 +140,7 @@ class Tasklist extends React.Component {
         <NewTask isOpen={this.state.openNewTask} onNewTask={this.onNewTask.bind(this)} closeNewTask={this.closeNewTask.bind(this)} />
         <div style={style}>
         {this.state.tasks.map((task, taskID, taskArray) => (
-          <Task task={task} taskID={taskID} deleteTask={this.deleteTask.bind(this)} />
+          <Task task={task} taskID={taskID} deleteTask={this.deleteTask.bind(this)} editTask={this.editTask.bind(this)} />
         ))}
         </div>
         <AlertContainer ref={a => this.msg = a} {...alertOptions} />
