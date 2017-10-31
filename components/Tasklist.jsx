@@ -34,10 +34,18 @@ class Tasklist extends React.Component {
       .then(res => {
         if (res.data.tasks.tasks) {
           const tasks = res.data.tasks.tasks;
-          console.log(tasks);
-          this.setState({ tasks });
+          // console.log(tasks);
+          this.setState({ tasks }, () => {
+            this.msg.success('Successfully loaded saved tasks.');
+          });
         } else {
-          console.log('No previously saved tasks.');
+          this.msg.show('No previously saved tasks.');
+        }
+      })
+      .catch((error) => {
+        // console.log('here is error: ', error);
+        if (error) {
+          this.msg.error('' + error);
         }
       });
   }
@@ -80,7 +88,7 @@ class Tasklist extends React.Component {
 
   deleteTask(taskID) {
     let newTasks = this.state.tasks.slice(0, taskID).concat(this.state.tasks.slice(taskID + 1));
-    console.log(newTasks);
+    // console.log(newTasks);
     this.setState({
       tasks: newTasks,
       canSave: true
@@ -94,26 +102,20 @@ class Tasklist extends React.Component {
       }
     };
 
-    console.log('newSave = ', newSave);
+    // console.log('newSave = ', newSave);
     axios.post('http://cfassignment.herokuapp.com/derrickchan/tasks', newSave)
     .then((response) => {
-      console.log(response);
+      this.setState({
+        canSave: false
+      }, () => {
+        this.msg.success('Successfully saved tasks.');
+      });
+      // console.log(response);
     })
     .catch((error) => {
-      console.log(error);
+      this.msg.error('' + error);
+      // console.log('error = ', error);
     });
-  }
-
-  showAlert(message) {
-    this.msg.show(message, {
-      time: 0,
-      type: 'success',
-      icon: <img src="path/to/some/img/32x32.png" />
-    });
-  }
-
-  confirmSave() {
-    this.showAlert();
   }
 
   handleInputChange(e) {
@@ -123,7 +125,7 @@ class Tasklist extends React.Component {
   }
 
   handleKeyDown(e) {
-    console.log('e.key = ', e.key);
+    // console.log('e.key = ', e.key);
     if (e.key === 'Escape') {
       this.closeNewTask();
     } else if (e.key === 'Enter') {
@@ -167,7 +169,7 @@ class Tasklist extends React.Component {
             </ButtonToolbar>
           </div>}
         {this.state.tasks.map((task, taskID, taskArray) => (
-          <Task task={task} taskID={taskID} deleteTask={this.deleteTask.bind(this)} editTask={this.editTask.bind(this)} />
+          <Task task={task} taskID={taskID} key={taskID} deleteTask={this.deleteTask.bind(this)} editTask={this.editTask.bind(this)} />
         ))}
         </div>
         <AlertContainer ref={a => this.msg = a} {...alertOptions} />
