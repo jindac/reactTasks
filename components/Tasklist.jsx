@@ -1,21 +1,8 @@
 import React from 'react';
-import { createStore } from 'redux';
 import axios from 'axios';
 import AlertContainer from 'react-alert';
 import { Button, ButtonToolbar } from 'react-bootstrap';
 import Task from './Task.jsx';
-
-// const reducer = () => {
-//   if (action.type === 'INC') {
-//     return state + 1;
-//   }
-// };
-
-// const store = createStore(reducer, 0);
-
-// store.subscribe(() => {
-//   console.log('store changed', store.getState());
-// });
 
 class Tasklist extends React.Component {
 
@@ -34,7 +21,6 @@ class Tasklist extends React.Component {
       .then(res => {
         if (res.data.tasks.tasks) {
           const tasks = res.data.tasks.tasks;
-          // console.log(tasks);
           this.setState({ tasks }, () => {
             this.msg.success('Successfully loaded saved tasks.');
           });
@@ -43,10 +29,7 @@ class Tasklist extends React.Component {
         }
       })
       .catch((error) => {
-        // console.log('here is error: ', error);
-        if (error) {
-          this.msg.error('' + error);
-        }
+        this.msg.error('' + error);
       });
   }
 
@@ -88,7 +71,6 @@ class Tasklist extends React.Component {
 
   deleteTask(taskID) {
     let newTasks = this.state.tasks.slice(0, taskID).concat(this.state.tasks.slice(taskID + 1));
-    // console.log(newTasks);
     this.setState({
       tasks: newTasks,
       canSave: true
@@ -101,8 +83,6 @@ class Tasklist extends React.Component {
         tasks: this.state.tasks
       }
     };
-
-    // console.log('newSave = ', newSave);
     axios.post('http://cfassignment.herokuapp.com/derrickchan/tasks', newSave)
     .then((response) => {
       this.setState({
@@ -110,11 +90,9 @@ class Tasklist extends React.Component {
       }, () => {
         this.msg.success('Successfully saved tasks.');
       });
-      // console.log(response);
     })
     .catch((error) => {
       this.msg.error('' + error);
-      // console.log('error = ', error);
     });
   }
 
@@ -125,7 +103,6 @@ class Tasklist extends React.Component {
   }
 
   handleKeyDown(e) {
-    // console.log('e.key = ', e.key);
     if (e.key === 'Escape') {
       this.closeNewTask();
     } else if (e.key === 'Enter') {
@@ -179,4 +156,3 @@ class Tasklist extends React.Component {
 }
 
 export default Tasklist;
-        // <NewTask isOpen={this.state.openNewTask} onNewTask={this.onNewTask.bind(this)} closeNewTask={this.closeNewTask.bind(this)} />
